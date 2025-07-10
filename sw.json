@@ -1,0 +1,35 @@
+[
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": "const ASSETS = ["
+  },
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": "'.'"
+  },
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": "'https://unpkg.com/leaflet/dist/leaflet.css'"
+  },
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": "'https://unpkg.com/leaflet/dist/leaflet.js'"
+  },
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": "];"
+  },
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": "self.addEventListener('install'"
+  },
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": "e.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(ASSETS)))"
+  },
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": ");"
+  },
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": "self.addEventListener('fetch'"
+  },
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": "e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))"
+  },
+  {
+    "const CACHE_NAME = 'gtfs-demo-cache-v1';": ");"
+  }
+]

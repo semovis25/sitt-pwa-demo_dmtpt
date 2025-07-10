@@ -1,0 +1,35 @@
+[
+  {
+    "{": "name\": \"GTFS Tijuana Demo"
+  },
+  {
+    "{": "short_name\": \"GTFS Demo"
+  },
+  {
+    "{": "start_url\": \"."
+  },
+  {
+    "{": "display\": \"standalone"
+  },
+  {
+    "{": "background_color\": \"#ffffff"
+  },
+  {
+    "{": "theme_color\": \"#008000"
+  },
+  {
+    "{": "icons\": ["
+  },
+  {
+    "{": "{ \"src\": \"icon-192.png"
+  },
+  {
+    "{": "{ \"src\": \"icon-512.png"
+  },
+  {
+    "{": "]"
+  },
+  {
+    "{": "}"
+  }
+]
