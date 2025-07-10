@@ -18,7 +18,7 @@
     const map = L.map('map').setView([32.525, -117], 12);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
     // Rutas
-    fetch('routes.geojson').then(r=>r.json()).then(data=>{
+    fetch('shapes.geojson').then(r=>r.json()).then(data=>{
       L.geoJSON(data,{
         style:f=>({color:'#'+f.properties.color,weight:4}),
         onEachFeature:(f,l)=>l.bindTooltip('Ruta '+f.properties.id,{sticky:true})
