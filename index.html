@@ -5,67 +5,46 @@
   <title>GTFS Tijuana Demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-  <style> html,body,#map{height:100%;margin:0}</style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <style> html,body,#map{height:100%;margin:0} </style>
 </head>
 <body>
   <div id="map"></div>
-
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    // Registra service worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
     }
 
-    // Inicializa mapa
     const map = L.map('map').setView([32.525, -117], 12);
-    L.tileLayer(
-      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      { maxZoom: 19, attribution: '&copy; OpenStreetMap' }
-    ).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      maxZoom:19, attribution:'© OpenStreetMap'
+    }).addTo(map);
 
-    // Carga rutas desde shapes.geojson
+    // Carga líneas
     fetch('shapes.geojson')
       .then(res => {
-        if (!res.ok) throw new Error(`shapes.geojson → ${res.status}`);
+        if (!res.ok) throw new Error('No se pudo cargar shapes.geojson: ' + res.status);
         return res.json();
       })
-      .then(geojson => {
-        L.geoJSON(geojson, {
-          style: f => ({
-            color: '#' + f.properties.color,
-            weight: 4
-          }),
-          onEachFeature: (f, layer) => {
-            layer.bindTooltip('Ruta ' + f.properties.id, { sticky: true });
-          }
+      .then(data => {
+        L.geoJSON(data, {
+          style: f => ({ color: '#' + (f.properties.color||'3388ff'), weight: 4 }),
+          onEachFeature: (f, layer) => layer.bindTooltip('Ruta ' + f.properties.id, {sticky:true})
         }).addTo(map);
       })
       .catch(err => console.error(err));
 
-    // Carga paradas desde stops.geojson
+    // Carga paradas
     fetch('stops.geojson')
       .then(res => {
-        if (!res.ok) throw new Error(`stops.geojson → ${res.status}`);
+        if (!res.ok) throw new Error('No se pudo cargar stops.geojson: ' + res.status);
         return res.json();
       })
-      .then(geojson => {
-        L.geoJSON(geojson, {
-          pointToLayer: (f, latlng) => L.circleMarker(latlng, {
-            radius: 6,
-            fillColor: '#fff',
-            color: '#000',
-            weight: 1,
-            fillOpacity: 0.9
-          }),
-          onEachFeature: (f, layer) => {
-            layer.bindPopup(
-              `<b>${f.properties.name}</b><br/>ID: ${f.properties.id}`
-            );
-          }
+      .then(data => {
+        L.geoJSON(data, {
+          pointToLayer:(f,latlng)=>L.circleMarker(latlng,{radius:5,fillColor:'#fff',color:'#000',weight:1,fillOpacity:0.8}),
+          onEachFeature:(f,layer)=>layer.bindPopup(`<b>${f.properties.name}</b><br/>ID: ${f.properties.id}`)
         }).addTo(map);
       })
       .catch(err => console.error(err));
